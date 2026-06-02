@@ -4,6 +4,7 @@ from google import genai
 from google.genai import errors
 from dotenv import load_dotenv
 import os
+import matplotlib.pyplot as plt
 
 load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
@@ -75,3 +76,34 @@ print("\n===== PAINEL DE RESULTADOS =====")
 print(df["sentimento"].value_counts().to_string())
 print(f"\nTotal de feedbacks analisados: {len(df)}")
 print("================================")
+
+cores = {"Positivo": "#4CAF50", "Negativo": "#F44336", "Neutro": "#FF9800"}
+
+contagem = df["sentimento"].value_counts()
+labels = contagem.index.tolist()
+valores = contagem.values.tolist()
+colors = [cores.get(1, "#9E9E9E") for l in labels]
+
+fig, ax = plt.subplots(figsize=(6, 6    ))
+wedges, texts, autotexts = ax.pie(
+    valores,
+    labels=labels,
+    autopct="%1.0f%%",
+    colors=colors,
+    startangle=90,
+    wedgeprops={"edgecolor": "white", "linewidth": 2}
+)
+
+for text in texts:
+    text.set_fontsize(13)
+for autotext in autotexts:
+    autotext.set_fontsize(12)
+    autotext.set_color("white")
+    autotext.set_fontweight("bold")
+
+ax.set_title("Análise de Sentimentos dos Feedbacks", fontsize=15, fontweight="bold", pad=20)
+plt.tight_layout()
+plt.savefig("grafico_sentimentos.png", dpi=150, bbox_inches="tight")
+print("Gráfico salvo como 'grafico_sentimentos.png'!")
+plt.show()
+
