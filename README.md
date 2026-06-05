@@ -1,53 +1,30 @@
-# Análise de Feedback com IA
+# Análise de Feedback com Inteligência Artificial
 
-Script Python que analisa feedbacks de clientes automaticamente usando a API do Google Gemini, classificando sentimento, palavra-chave e resumo de cada resposta.
+Aplicação web completa para análise de sentimentos e categorização de feedbacks de clientes em tempo real. O sistema combina um backend em Python com um dashboard dinâmico no frontend para exibir métricas consolidadas instantaneamente.
 
 ## Funcionalidades
 
-- Lê feedbacks de um arquivo CSV
-- Classifica cada feedback como Positivo, Neutro ou Negativo
-- Extrai palavra-chave e resumo de cada feedback
-- Gera um relatório CSV com os resultados
+* **Análise em Tempo Real:** Processamento imediato de feedbacks através de requisições assíncronas, sem necessidade de recarregar a página.
+* **Resiliência de API:** Sistema de contingência dinâmica que seleciona automaticamente os modelos mais estáveis e disponíveis do momento via OpenRouter.
+* **Dashboard Dinâmico:** Gráfico de rosca interativo que atualiza suas fatias proporcionalmente a cada nova análise computada.
+* **Notificações Fluidas:** Alertas visuais de status (carregamento, sucesso e erro) integrados à interface do usuário.
+* **Histórico Visual:** Exibição dos resultados anteriores estruturados em cards coloridos de acordo com o sentimento detectado.
 
 ## Tecnologias
 
-- Python 3.14
-- Google Gemini API (`google-genai`)
-- Pandas
+* **Backend:** Python 3.14, Flask, Python-dotenv
+* **Inteligência Artificial:** OpenRouter API (LLM dinâmico)
+* **Frontend:** JavaScript (Fetch API), Chart.js, Toastify-JS, HTML5, CSS3
+* **Deploy & Infraestrutura:** Vercel (Serverless), GitHub (CI/CD)
 
-## Como usar
+## Estrutura do Projeto
 
-1. Clone o repositório
-```bash
-   git clone https://github.com/seu-usuario/analise-feedback.git
-   cd analise-feedback
-```
-
-2. Crie e ative o ambiente virtual
-```bash
-   python -m venv .venv
-   .venv\Scripts\activate
-```
-
-3. Instale as dependências
-```bash
-   pip install -r requirements.txt
-```
-
-4. Configure sua chave de API — crie um arquivo `.env`:
-
-GEMINI_API_KEY=sua_chave_aqui
-
-5. Adicione seus feedbacks em `feedbacks.csv` e rode:
-```bash
-   python analisar.py
-```
-
-## Estrutura
-
+```text
 analise-feedback/
-├── analisar.py         # Script principal
-├── feedbacks.csv       # Dados de entrada
-├── requirements.txt    # Dependências
-├── .env                # Chave de API (não versionado)
-└── .gitignore
+├── templates/
+│   └── index.html       # Interface do usuário e dashboard
+├── app.py               # Servidor Flask e lógica de integração com IA
+├── requirements.txt     # Dependências mínimas do projeto
+├── vercel.json          # Configuração de deploy da Vercel
+├── .env                 # Chave de API local (não versionada)
+└── .gitignore           # Proteção de arquivos sensíveis
